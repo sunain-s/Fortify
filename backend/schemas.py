@@ -1,5 +1,5 @@
-from pydantic import BaseModel, Field, constr
-from typing import Optional
+from pydantic import BaseModel, Field, StringConstraints
+from typing import Optional, Annotated
 from datetime import datetime
 
 # ---------------------------
@@ -7,8 +7,8 @@ from datetime import datetime
 # ---------------------------
 
 class UserCreate(BaseModel):
-    username: constr(min_length=3, max_length=50)
-    password: constr(min_length=6, max_length=100)
+    username: Annotated[str, StringConstraints(min_length=3, max_length=50)]
+    password: Annotated[str, StringConstraints(min_length=3, max_length=100)]
 
 class UserLogin(BaseModel):
     username: str
