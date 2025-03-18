@@ -13,7 +13,7 @@ def login(dto: LoginDto, response: Response,  db: Session = Depends(get_db)):
 
 
     response.set_cookie(
-        key="refresh_token",
+        key="access_token",
         value=tokens["access_token"],
         httponly=True,
         secure=True,      
@@ -36,8 +36,15 @@ def logout():
     pass
 
 @auth_router.post("/refresh")
-def  refresh_token(dto: RefreshDto, request: Request,  db: Session = Depends(get_db)):
+def  refresh_token(dto: RefreshDto, request: Request, response: Response,  db: Session = Depends(get_db)):
     refresh_token = request.cookies.get("refresh_token")
     auth_service = AuthServices(db)
     token = auth_service.refresh(refresh_token)
+    response.set_cookie(
+        key="access_token",
+        value=token["access_token"],
+        httponly=True,
+        secure=True,      
+        samesite="strict"    
+    )
     return {"access_token": token["access_token"]}

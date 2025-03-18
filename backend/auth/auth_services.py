@@ -16,7 +16,7 @@ class AuthServices:
         if not verify_password(password, user.hashed_password):
             raise HTTPException(status_code=401, detail="Incorrect Password")
         
-        payload = TokenPayLoad(email=user.email, username=user.username)
+        payload = TokenPayLoad(email=user.email, id=user.id)
         
         return {"access_token": self.jwt_service.create_access_token(payload), "refresh_token": self.jwt_service.create_refresh_token(payload)}
     

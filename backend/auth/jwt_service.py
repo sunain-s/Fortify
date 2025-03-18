@@ -12,21 +12,21 @@ REFRESH_TOKEN_EXPIRE_MINUTES = 1440
 
 class TokenPayLoad(BaseModel):
     email: str
-    username: str
+    id: int
 
 class JwtService:
     def __init__(self):
         pass
 
     def create_access_token(self, data: TokenPayLoad) -> str:
-        to_encode = data.copy()
+        to_encode = data.model_copy()
         expire = datetime.now(UTC) + (timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
         to_encode.update({"exp": expire, "type": "access"})
         encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
         return encoded_jwt
     
     def create_refresh_token(self, data: TokenPayLoad) -> str:
-        to_encode = data.copy()
+        to_encode = data.model_copy()
         expire = datetime.now(UTC) + (timedelta(minutes=REFRESH_TOKEN_EXPIRE_MINUTES))
         to_encode.update({"exp": expire, "type": "refresh"})
         encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
@@ -56,15 +56,15 @@ class JwtService:
             
             # Extract the user identifier (commonly stored in the "sub" claim)
             email = payload.get("email")
-            username = payload.get("username")
+            id = payload.get("id")
 
-            if email == None or username == None:
+            if email == None or id == None:
                 raise HTTPException(
                     status_code=401,
                     detail="Invalid token payload"
                 )
             
-            return TokenPayLoad(email, username)
+            return TokenPayLoad(email, id)
 
         except jwt.ExpiredSignatureError:
             raise HTTPException(
