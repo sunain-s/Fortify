@@ -1,7 +1,7 @@
 import jwt
 from fastapi import Depends, Request, HTTPException, status
 from fastapi.security import HTTPBearer
-from jwt_service import SECRET_KEY, ALGORITHM, TokenPayLoad
+from .jwt_service import SECRET_KEY, ALGORITHM, TokenPayLoad
 
 security = HTTPBearer()
 

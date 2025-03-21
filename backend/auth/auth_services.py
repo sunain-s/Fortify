@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from user.user_services import UserService
 from user.user_utils import verify_password
 from fastapi import HTTPException
-from jwt_service import JwtService, TokenPayLoad
+from .jwt_service import JwtService, TokenPayLoad
 
 class AuthServices:
 

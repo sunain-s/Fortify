@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from fastapi import Depends
 
-SQLALCHEMY_DATABASE_URL = "../fortify.db"
+SQLALCHEMY_DATABASE_URL = 'sqlite:///:memory:' #"../fortify.db"
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,

@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, Response, Request
 from sqlalchemy.orm import Session
-from dtos import LoginDto, RefreshDto
+from .dtos import LoginDto, RefreshDto
 from databases.database import get_db
-from auth_services import AuthServices
+from .auth_services import AuthServices
 auth_router = APIRouter()
 
 

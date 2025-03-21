@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr, StringConstraints
-from  typing import Annotated, Optional
+from typing import Annotated, Optional
 
 
 class CreateUserDto(BaseModel):

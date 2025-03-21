@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from databases.models import User
 from typing import Optional
-from user_utils import hash_password
+from .user_utils import hash_password
 from fastapi import HTTPException
 
 class UserService:
