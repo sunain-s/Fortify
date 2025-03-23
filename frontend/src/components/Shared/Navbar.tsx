@@ -1,26 +1,28 @@
-import { useAuth } from '../../context/AuthContext';
-import { Link } from 'react-router-dom';
+import React from "react"
+import { Link } from "react-router-dom"
 
-const Navbar = () => {
-    const { user, logout } = useAuth();
+function Navbar() {
+  return (
+    <div className="navbar">
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/signup">Sign Up</Link>
+        </li>
+        <li>
+          <Link to="/login">Log In</Link>
+        </li>
+        <li>
+          <Link to="/dashboard">Dashboard</Link>
+        </li>
+        <li>
+          <Link to="/profile">Profile</Link>
+        </li>
+      </ul>
+    </div>
+  )
+}
 
-    return (
-        <nav>
-            <Link to="/">Home</Link>
-            {user ? (
-                <>
-                    <Link to="/dashboard">Dashboard</Link>
-                    <Link to="/profile">Profile</Link>
-                    <button onClick={logout}>Logout</button>
-                </>
-            ) : (
-                <>
-                    <Link to="/login">Login</Link>
-                    <Link to="/signup">Signup</Link>
-                </>
-            )}
-        </nav>
-    );
-};
-
-export default Navbar;
+export default Navbar

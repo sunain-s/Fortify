@@ -7,6 +7,5 @@ class LoginDto(BaseModel):
     password: Annotated[str, StringConstraints(min_length=8, max_length=100)]
     pin: str | None = None
 
-
 class RefreshDto(BaseModel):
     refresh_token: str

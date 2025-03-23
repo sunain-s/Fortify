@@ -4,25 +4,20 @@ from user.user_utils import verify_password
 from fastapi import HTTPException
 from .jwt_service import JwtService, TokenPayLoad
 
-
 class AuthServices:
     def __init__(self, db: Session):
         self.db = db
         self.user_service = UserService(db)
         self.jwt_service = JwtService()
 
-    def login(self, email: str, password: str, pin: str = None):
+    def login(self, email: str, password: str):
         user = self.user_service.get_user_by_email(email)
         if not verify_password(password, user.hashed_password):
             raise HTTPException(status_code=401, detail="Incorrect Password")
-
-        if user.pin and pin != user.pin:
-            raise HTTPException(status_code=401, detail="Incorrect PIN")
-
         payload = TokenPayLoad(email=user.email, id=user.id)
         return {
             "access_token": self.jwt_service.create_access_token(payload),
-            "refresh_token": self.jwt_service.create_refresh_token(payload),
+            "refresh_token": self.jwt_service.create_refresh_token(payload)
         }
 
     def refresh(self, refresh_token: str):
