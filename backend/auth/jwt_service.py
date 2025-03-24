@@ -61,7 +61,7 @@ class JwtService:
             if email == None or id == None:
                 raise HTTPException(
                     status_code=401,
-                    detail="Invalid token payload"
+                    detail="Invalid token payloa d"
                 )
             
             return TokenPayLoad(email, id)
