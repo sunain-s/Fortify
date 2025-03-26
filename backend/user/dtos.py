@@ -6,9 +6,12 @@ class CreateUserDto(BaseModel):
     username: str
     email: EmailStr
     password: Annotated[str, StringConstraints(min_length=8, max_length=100)]
-    
+    pin: Optional[str] = None
+
 
 class UpdateUserDto(BaseModel):
     username: Optional[str] = None
-    password: Optional[Annotated[str, StringConstraints(min_length=8, max_length=100)]] = None
- 
+    password: Optional[
+        Annotated[str, StringConstraints(min_length=8, max_length=100)]
+    ] = None
+    pin: Optional[str] = None
